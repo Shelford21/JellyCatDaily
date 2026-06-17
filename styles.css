@@ -1,0 +1,541 @@
+/* SIDEBAR SEND BUTTON GREEN */
+
+section[data-testid="stSidebar"] .stButton > button {
+    background-color: green !important;
+    color: white !important;
+}
+
+section[data-testid="stSidebar"] .stButton > button:hover {
+    background-color: #008000 !important;
+    color: white !important;
+}
+
+/* FORCE SIDEBAR TOGGLE VISIBLE */
+
+button[kind="header"] {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+
+    background-color: black !important;
+    color: white !important;
+
+    border-radius: 8px !important;
+    border: 1px solid #444 !important;
+
+    width: 40px !important;
+    height: 40px !important;
+}
+
+/* SIDEBAR NAV AREA */
+[data-testid="stSidebarNav"] {
+    display: block !important;
+}
+
+/* HEADER */
+header {
+    visibility: visible !important;
+}
+
+/* TOOLBAR */
+[data-testid="stToolbar"] {
+    display: flex !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+}
+
+/* SIDEBAR */
+section[data-testid="stSidebar"] {
+    min-width: 350px !important;
+}
+
+
+/* MARKDOWN CONTAINER TEXT WHITE */
+
+[data-testid="stMarkdownContainer"] {
+    color: white !important;
+}
+
+/* FORM SUBMIT BUTTON */
+
+div[data-testid="stFormSubmitButton"] > button {
+    background-color: green !important;
+    color: white !important;
+    border: 1px solid #333 !important;
+}
+
+div[data-testid="stFormSubmitButton"] > button:hover {
+    background-color: #222 !important;
+    color: white !important;
+    border: 1px solid #555 !important;
+}
+
+
+
+
+/* BUTTON BLACK BACKGROUND */
+
+.stButton > button {
+    background-color: black !important;
+    color: white !important;
+    border: 1px solid #333 !important;
+}
+
+.stButton > button:hover {
+    background-color: #222 !important;
+    color: white !important;
+    border: 1px solid #555 !important;
+}
+
+
+section {
+    
+    /*background-color: #da3434;*/
+}
+
+.withScreencast > div > header[data-testid="stHeader"] {
+    display: none !important;
+}
+
+div[data-baseweb="slider"]>div>div>div{
+background-color: #FFFFFF;
+}
+
+div[data-baseweb="slider"]>div>div>div>div{
+color: rgb(247, 255, 0);
+	font-size:18px;
+	top:-30px;
+}
+
+.stSlider>div>div[data-testid="stTickBar"]{
+	display:none;
+}
+
+div[data-testid="stAppViewContainer"]> section[data-testid="stSidebar"]{
+	background-color:rgb(8, 8, 9,0.76);
+}
+
+.block-container {
+    border: 0px solid #ccc; /* Optional border */
+    border-radius: 8px; 
+    color: rgb(252, 252, 252);
+    width: 90%;
+    max-width: 14000px;
+    background-color: rgba(0, 0, 0, 0.3); /* 50% transparent black */
+}
+
+header[data-testid="stHeader"]{
+	display: none ;
+}
+div[data-testid="stAppViewContainer"]{
+	background:url("https://images.unsplash.com/photo-1506318137071-a8e063b4bec0?q=80&w=2093&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+}
+
+div[data-testid="stHorizontalBlock"] > div > div > div > div > div > button:hover,
+div[data-testid="stHorizontalBlock"] > div > div > div > div > div > button:focus,
+div[data-testid="stHorizontalBlock"] > div > div > div > div > div > button:active,
+div[data-testid="stHorizontalBlock"] > div > div > div > div > div > button:focus:not(:active){
+    border-color: rgb(238, 255, 0);
+    color: rgb(255, 230, 0);
+    background-color: #000000;
+}
+
+div[data-testid="stVerticalBlock"] > div > div > button:hover,
+div[data-testid="stVerticalBlock"] > div > div > button:focus,
+div[data-testid="stVerticalBlock"] > div > div > button:active,
+div[data-testid="stVerticalBlock"] > div > div > button:focus:not(:active){
+    border-color: rgb(238, 255, 0);
+    color: rgb(255, 230, 0);
+    background-color: #000000;
+}
+
+
+div[data-testid="stVerticalBlock"]>div>div>button{
+    display: flex;
+    flex-direction: row;
+    -moz-box-align: center;
+    align-items: center;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    line-height: 2;
+    background-color: #0f0e0e;
+    color : rgb(240, 239, 236);
+    gap: 0.5rem;
+    border-radius: 0.25rem;
+    margin: 0.125rem 1rem;
+    width: 250px;
+}
+
+
+/* Make the dataframe container wider */
+.stDataFrameContainer {
+    width: 100% !important;
+    max-width: 100% !important;
+    position: relative;
+}
+
+/* Make the scrolling area wider */
+.dvn-scroller {
+    width: 100% !important;
+}
+
+
+.container {
+    width: 100%;
+    max-width: 1200px; /* Adjust as needed */
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+.stAppViewContainer  {
+    background: url("https://images.unsplash.com/photo-1506318137071-a8e063b4bec0?q=80&w=2093&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+    /*background: linear-gradient(30deg, #000000 0%, #3b3b3b 62%);*/
+    background-size: cover;
+    background-position:center;
+    background-repeat:no-repeat;
+    background-position: center;
+    height: 100%;
+    width: 100%;
+    padding-top : 0px;
+    
+    }
+
+.stMainBlockContainer {
+    border: 0px solid #ccc; /* Optional border */
+    border-radius: 8px; 
+    color: rgb(252, 252, 252);
+    width: 90%;
+    max-width: 14000px;
+    background-color: rgba(0, 0, 0, 0.7); /* 50% transparent black */
+}
+
+
+/* H2 inside the Streamlit markdown structure */
+    .stMainBlockContainer 
+        > div>div>div 
+        > div[data-testid="stElementContainer"] 
+        > div[data-testid="stHeading"] 
+        > div[data-testid="stMarkdownContainer"] 
+        > div[data-testid="stHeadingWithActionElements"] 
+        > h2 {
+        width: 90% !important;
+        max-width: 1400px !important;
+        margin: auto !important;
+        padding: 20px !important;
+        text-shadow: 3px 3px 8px rgba(255, 215, 0, 0.8);
+        font-size: 2rem;
+        color: gold;
+        text-align: center;
+        animation: myfirstclass 2s ease 0s 1 normal forwards;
+    }
+
+    .stVerticalBlock > div > div > div > div[data-testid="stHeadingWithActionElements"]{
+        margin: auto;
+        text-align: center;
+    }
+
+/* tombol cari aplikasi reset data*/
+    .stHorizontalBlock > div > div > div > div > div > div > button[data-testid="stBaseButton-secondary"]{
+        display: flex;
+        flex-direction: row;
+        -moz-box-align: center;
+        align-items: center;
+        padding-left: 0.5rem;
+        padding-right: 0.5rem;
+        line-height: 2;
+        background-color: #0f0e0e;
+        color : rgb(250, 250, 249);
+        gap: 0.5rem;
+        border-radius: 0.25rem;
+        margin: auto;
+        width: 250px;
+    }
+
+    .dvn-underlay >div {
+        position:relative;
+    }
+/* tombol segala kecuali cari aplikasi reset data*/
+    .stVerticalBlock > div > div > button[data-testid="stBaseButton-secondary"]{
+    display: flex;
+    flex-direction: row;
+    -moz-box-align: center;
+    align-items: center;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    line-height: 2;
+    background-color: #0f0e0e;
+    color : rgb(240, 239, 236);
+    gap: 0.5rem;
+    border-radius: 0.25rem;
+    margin: 0.125rem 1rem;
+    width: 250px;
+}
+
+.stVerticalBlock > div > div > button[data-testid="stBaseButton-secondary"]:focus {
+    border-color: rgb(238, 255, 0);
+    color : rgb(255, 230, 0);
+}
+
+.stVerticalBlock > div > div > button[data-testid="stBaseButton-secondary"]:hover {
+    border-color: rgb(238, 255, 0); /* Change border color to blue on hover */
+}
+
+
+.kenburns-top {
+    -webkit-animation: kenburns-top 5s ease-out both;
+    animation: kenburns-top 5s ease-out both;
+    }
+ /* Hide min/max labels below the slider */
+ .stSlider div[data-testid="stSliderTickBarMin"] {
+        display: none ;
+    }
+    .stSlider div[data-testid="stSliderTickBarMax"] {
+        display: none ;
+    }
+    
+    .stSlider div[data-testid="stSliderThumbValue"] {
+        -webkit-text-fill-color: #ffffff !important;  
+    }
+    .stSlider div[data-testid="slider"] {
+        background: #000000 !important;  
+    }
+    .st-emotion-cache-1dj3ksd {
+        background: #ffffff !important;  /* dot*/
+    }
+    /*kolom input utama*/
+    .stTextInput > div[data-baseweb="input"]{
+        box-shadow: 0px 0px 2px 2px rgba(236, 236, 236, 0.9); /* Neon glow */
+    }
+    .stTextInput > div[data-baseweb="input"]:hover{
+        border-color: rgb(238, 255, 0); 
+    }
+    .stTextInput > div[data-baseweb="input"] > div:focus{
+        border-color: rgb(238, 255, 0); 
+    }
+    .stTextInput > div[data-baseweb="input"] > div::before {
+        content: "Find apps"; /* Your placeholder text */
+        color: gray; /* Placeholder text color */
+        position: absolute;
+        right: 20px;  
+        pointer-events: none; /* Ensures it doesn’t interfere with typing */
+        font-size: 14px;
+    }
+
+
+    
+   
+    /* Glowing blue slider track */
+    .stSlider > div[data-baseweb="slider"] > div {
+        box-sizing: border-box;
+        background: #11111150 !important;  /* Blue track */
+        border: 1px solid #ccc; /* Optional border */
+        border-radius: 8px; /* Optional rounded corners */
+        /*box-shadow: 0px 0px 2px 2px rgba(255, 215, 0, 0.8); /* Blue glow */
+    }
+
+    .stSlider > div[data-baseweb="slider"] > div:hover {
+        background: #11111150 !important;  /* Blue track */
+        /*box-shadow: 0px 0px 2px 2px rgba(255, 215, 0, 0.8); /* Blue glow */
+        /*border-color: rgb(238, 255, 0); /* Change border color to blue on hover */
+    }
+    
+    /* Glowing blue slider handle (dot) */
+    .stSlider > div[data-baseweb="slider"] > div > div {
+        background: #f3f3f3 !important;  /* Darker blue handle */
+        /*box-shadow: 0px 0px 2px 2px rgba(255, 215, 0, 0.8); /* Neon glow */
+    }
+
+    .stSlider > div[data-baseweb="slider"] > div[data-testid="stSliderTickBar"] {
+        box-sizing: border-box;
+        background: #11111150 !important;  /* Blue track */
+        border: 1px solid #ccc; /* Optional border */
+        border-radius: 8px; /* Optional rounded corners */
+        /*box-shadow: 0px 0px 2px 2px rgba(255, 215, 0, 0.8); /* Blue glow */
+    }
+
+    .stSlider > div[data-baseweb="slider"] > div[data-testid="stSliderTickBar"]:hover {
+        background: #11111150 !important;  /* Blue track */
+        /*box-shadow: 0px 0px 2px 2px rgba(255, 215, 0, 0.8); /* Blue glow */
+        border-color: rgb(238, 255, 0); /* Change border color to blue on hover */
+    }
+  
+   
+/* Styles for Tablets (768px and below) */
+@media only screen and (max-width: 768px) {
+    div[data-testid="stAppViewContainer"] {
+        background: url("https://images.unsplash.com/photo-1506318137071-a8e063b4bec0?q=80&w=2093&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+
+	 
+	.transparent-container > div > h1,
+	.transparent-container > div > h3{
+		 max-width: 80% !important; /* Reduce width */
+         font-size: 8vw !important;/* Smaller font size ga ngaruh jims*/
+        padding: 2px !important; /* Reduce padding */
+	}
+	.transparent-container > div > h2{
+		 max-width: 80% !important; /* Reduce width */
+         font-size: 4vw !important;/* Smaller font size ga ngaruh jims*/
+        padding: 10px !important; /* Reduce padding */
+	}
+	.transparent-container > div > h5,
+	.transparent-container > div > h4{
+         max-width: 90% !important; /* Reduce width */
+         font-size: 3vw !important;/* Smaller font size ga ngaruh jims*/
+        padding: 10px !important; /* Reduce padding */
+    }
+	  
+}
+
+
+
+}
+
+
+    div[data-testid="stImage"] img {
+        width: 800px !important;
+        max-width: 100% !important;
+        height: auto !important;
+        position: relative;
+        border: 2px solid rgb(51, 51, 51) !important; /* Test if it's being applied */
+        margin-left: 200px;
+    }
+    
+     .transparent-container {
+        background: rgba(0,0,0,0.0);  
+        padding: 20px;
+        border-radius: 1000px;
+        text-align: center;
+        width: 100%;
+        margin: auto;
+        font-family: "Brush Script MT", monospace;
+        font-size: 10px;
+        color: gold;
+        
+    }
+
+    .transparent-container >div>h1{
+        text-align: center;
+        max-width: 90%; /* Make it responsive */
+    width: auto;
+        position:relative;
+        font-family: "Brush Script MT", monospace;
+        font-size: 5rem;
+        color: yellow;
+        text-shadow: 5px 5px 10px #da9f5a;
+        animation: myfirstclass 2s ease 0s 1 normal forwards;
+        
+    }
+    .transparent-container >div>h2{
+     max-width: 90%; /* Make it responsive */
+    width: auto;
+    position:relative;
+    padding: 20px !important;
+    text-shadow: 3px 3px 8px rgba(255, 215, 0, 0.8);
+    font-size: 2rem;
+    color: yellow;
+    text-align: center;
+    animation: myfirstclass 2s ease 0s 1 normal forwards;
+    }
+
+    .transparent-container >div>h3{
+        width: 90% !important;
+        max-width: 14000px !important;
+        position:relative;
+        padding: 20px !important;
+        text-shadow: 3px 3px 8px rgba(255, 255, 255, 0.8);
+        font-size: 3rem;
+        color: rgb(252, 252, 252);
+        text-align: center;
+    }
+    
+.transparent-container >div>h4{
+             max-width: 90%; /* Make it responsive */
+    width: auto;
+            padding: 20px !important;
+            position:relative;
+            text-shadow: 3px 3px 8px rgba(255, 255, 255, 0.8);
+            font-size: 1rem;
+            border: 1px solid #ccc; /* Optional border */
+            border-radius: 8px; 
+            color: rgb(252, 252, 252);
+            text-align: center;
+            background-color: rgba(0, 0, 0, 0.6);
+	    margin-left:2%;
+            animation: myfirstclass 2s ease 0s 1 normal forwards;
+            }
+
+.transparent-container >div>h5{
+                max-width: 90%; /* Make it responsive */
+    width: auto; 
+                padding: 20px !important;
+                position:relative;
+                text-shadow: 3px 3px 8px rgba(255, 255, 255, 0.8);
+                font-size: 1.3rem;
+                border: 1px solid #ccc; /* Optional border */
+                border-radius: 8px; 
+                color: rgb(252, 252, 252);
+                text-align: center;
+                background-color: rgba(0, 0, 0, 0.6);
+                margin-left:2%;
+                }
+            
+/* ----------------------------------------------
+ * Generated by Animista on 2025-2-12 11:50:38
+ * Licensed under FreeBSD License.
+ * See http://animista.net/license for more info. 
+ * w: http://animista.net, t: @cssanimista
+ * ---------------------------------------------- */
+
+/**
+ * ----------------------------------------
+ * animation kenburns-top
+ * ----------------------------------------
+ */
+ @-webkit-keyframes kenburns-top {
+    0% {
+      -webkit-transform: scale(1) translateY(0);
+              transform: scale(1) translateY(0);
+      -webkit-transform-origin: 50% 16%;
+              transform-origin: 50% 16%;
+    }
+    100% {
+      -webkit-transform: scale(1.25) translateY(-15px);
+              transform: scale(1.25) translateY(-15px);
+      -webkit-transform-origin: top;
+              transform-origin: top;
+    }
+  }
+  @keyframes kenburns-top {
+    0% {
+      -webkit-transform: scale(1) translateY(0);
+              transform: scale(1) translateY(0);
+      -webkit-transform-origin: 50% 16%;
+              transform-origin: 50% 16%;
+    }
+    100% {
+      -webkit-transform: scale(1.25) translateY(-15px);
+              transform: scale(1.25) translateY(-15px);
+      -webkit-transform-origin: top;
+              transform-origin: top;
+    }
+  }
+  
+
+
+  @keyframes myfirstclass {
+	0% {
+		opacity: 0;
+		transform: scale(0.6);
+	}
+
+	100% {
+		opacity: 1;
+		transform: scale(1);
+	}
+}
