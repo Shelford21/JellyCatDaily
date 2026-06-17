@@ -8,21 +8,20 @@ with open("JellyCatDaily.png", "rb") as f:
 
 st.markdown(f"""
 <style>
-body {{
-    margin: 0;
-}}
-
-.block-container {{
-    padding: 0rem;
+.main .block-container {{
+    padding: 0;
     max-width: 100%;
 }}
 
-img {{
+.fullscreen-img {{
     width: 100vw;
     height: 100vh;
-    object-fit: contain;
+    object-fit: cover;
+    display: block;
 }}
 </style>
 
-<img src="data:image/jpeg;base64,{img}">
+<img class="fullscreen-img"
+     src="data:image/jpeg;base64,{img}">
 """, unsafe_allow_html=True)
+#JellyCatDaily.png
