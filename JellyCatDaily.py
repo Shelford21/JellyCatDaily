@@ -14,8 +14,8 @@ st.markdown(f"""
 }}
 
 .fullscreen-img {{
-    width: 100vw;
-    height: 100vh;
+    width: 200vw;
+    height: 200vh;
     object-fit: cover;
     display: block;
 }}
