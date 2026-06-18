@@ -1,11 +1,11 @@
 import streamlit as st
 import base64
-from streamlit_autorefresh import st_autorefresh
+# from streamlit_autorefresh import st_autorefresh
 
-st_autorefresh(
-        interval=5 * 1000,
-        key="datarefresh"
-)
+# st_autorefresh(
+#         interval=5 * 1000,
+#         key="datarefresh"
+# )
 
 def load_css():
     with open("styles.css") as f:
