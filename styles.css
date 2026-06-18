@@ -206,7 +206,7 @@ div[data-testid="stVerticalBlock"]>div>div>button{
     border: 0px solid #ccc; /* Optional border */
     border-radius: 8px; 
     color: rgb(252, 252, 252);
-    width: 90%;
+    width: 100%;
     max-width: 14000px;
     background-color: rgba(0, 0, 0, 0.7); /* 50% transparent black */
 }
