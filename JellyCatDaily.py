@@ -4,6 +4,10 @@ from streamlit_autorefresh import st_autorefresh
 from datetime import datetime
 import uuid
 import base64
+from PIL import Image, ImageOps
+from io import BytesIO
+
+
 # from streamlit_autorefresh import st_autorefresh
 
 # st_autorefresh(
@@ -163,9 +167,30 @@ if edit_mode:
             ext = uploaded.name.split(".")[-1]
             filename = f"{uuid.uuid4()}.{ext}"
         
+            TARGET_WIDTH = 3064
+            TARGET_HEIGHT = 1610
+            
+            img = Image.open(uploaded)
+            
+            img = ImageOps.fit(
+                img,
+                (TARGET_WIDTH, TARGET_HEIGHT),
+                Image.Resampling.LANCZOS
+            )
+            
+            buffer = BytesIO()
+            
+            img.save(
+                buffer,
+                format="JPEG",
+                quality=95
+            )
+            
+            buffer.seek(0)
+            
             supabase.storage.from_(BUCKET).upload(
                 path=filename,
-                file=uploaded.getvalue()
+                file=buffer.getvalue()
             )
         
             touch()
