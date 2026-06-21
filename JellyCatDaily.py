@@ -28,24 +28,28 @@ document.addEventListener("contextmenu", function(e) {
 """, height=0)
 
 
-st.markdown("""
+st.markdown(f"""
 <style>
 
-html, body {
-    overflow: hidden !important;
-    margin: 0 !important;
-    padding: 0 !important;
-}
+#MainMenu {{
+    visibility:hidden;
+}}
 
-[data-testid="stAppViewContainer"] {
-    overflow: hidden !important;
-}
+header {{
+    visibility:hidden;
+}}
 
-.main .block-container {
-    padding: 0 !important;
-    margin: 0 !important;
-    max-width: 100% !important;
-}
+footer {{
+    visibility:hidden;
+}}
+
+.block-container {{
+    padding-top:{TOP_MARGIN}px !important;
+    padding-left:0 !important;
+    padding-right:0 !important;
+    padding-bottom:0 !important;
+    max-width:100% !important;
+}}
 
 </style>
 """, unsafe_allow_html=True)
