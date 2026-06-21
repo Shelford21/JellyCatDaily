@@ -26,7 +26,6 @@ load_css()
 # =========================
 # SETTINGS
 # =========================
-
 TOP_MARGIN = 0
 EDIT_TIMEOUT = 60          # seconds
 SLIDE_INTERVAL = 15        # seconds
@@ -178,6 +177,8 @@ if edit_mode:
                 Image.Resampling.LANCZOS
             )
             
+            img = img.convert("RGB")
+            
             buffer = BytesIO()
             
             img.save(
@@ -188,14 +189,15 @@ if edit_mode:
             
             buffer.seek(0)
             
+            filename = f"{uuid.uuid4()}.jpg"
+            
             supabase.storage.from_(BUCKET).upload(
                 path=filename,
                 file=buffer.getvalue()
             )
-        
+            
             touch()
-        
-            st.success("Upload successful")
+            
             st.rerun()
 
     st.subheader("Uploaded Images")
