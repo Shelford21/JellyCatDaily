@@ -7,6 +7,41 @@ import base64
 from PIL import Image, ImageOps
 from io import BytesIO
 
+params = st.query_params
+
+if "nav" in params:
+
+    if params["nav"] == "next":
+        st.session_state.manual_index = (
+            st.session_state.manual_index + 1
+        ) % len(images)
+
+    elif params["nav"] == "prev":
+        st.session_state.manual_index = (
+            st.session_state.manual_index - 1
+        ) % len(images)
+
+    st.query_params.clear()
+    
+st.components.v1.html("""
+<script>
+
+document.addEventListener('keydown', function(e) {
+
+    if (e.key === 'ArrowLeft') {
+        window.parent.location.search='?nav=prev';
+    }
+
+    if (e.key === 'ArrowRight') {
+        window.parent.location.search='?nav=next';
+    }
+
+});
+
+</script>
+""", height=0)
+
+
 st.components.v1.html("""
 <script>
 
@@ -306,9 +341,27 @@ else:
         slide_tick % len(images)
     )
 
-    current = images[current_index]
-
-
+    if "manual_index" not in st.session_state:
+        st.session_state.manual_index = 0
+    
+    col1, col2 = st.columns(2)
+    
+    with col1:
+        if st.button("⬅ Previous", use_container_width=True):
+            st.session_state.manual_index = (
+                st.session_state.manual_index - 1
+            ) % len(images)
+    
+    with col2:
+        if st.button("Next ➡", use_container_width=True):
+            st.session_state.manual_index = (
+                st.session_state.manual_index + 1
+            ) % len(images)
+            
+    current = images[st.session_state.manual_index]
+    
+    
+        
     st.markdown(
         f"""
         <div style="
@@ -330,4 +383,6 @@ else:
         </div>
         """,
         unsafe_allow_html=True
-    )
+    )    
+
+    
