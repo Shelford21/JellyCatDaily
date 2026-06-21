@@ -16,7 +16,7 @@ if "manual_mode" not in st.session_state:
 if "manual_index" not in st.session_state:
     st.session_state.manual_index = 0
 
-if "last_manual_action" not in st.session_statei
+if "last_manual_action" not in st.session_state:
     st.session_state.last_manual_action = 0
 
 
