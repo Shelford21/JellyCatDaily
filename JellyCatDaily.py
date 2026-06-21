@@ -401,15 +401,15 @@ else:
 
     if st.session_state.manual_mode:
 
-    current = images[
-        st.session_state.manual_index
-    ]
-
-else:
-
-    current = images[
-        current_index
-    ]
+        current = images[
+            st.session_state.manual_index
+        ]
+    
+    else:
+    
+        current = images[
+            current_index
+        ]
     
     
         
