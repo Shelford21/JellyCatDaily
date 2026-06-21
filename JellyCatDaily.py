@@ -7,6 +7,26 @@ import base64
 from PIL import Image, ImageOps
 from io import BytesIO
 
+st.components.v1.html("""
+<script>
+
+document.addEventListener("click", function() {
+    window.parent.postMessage({
+        type: "next"
+    }, "*");
+});
+
+document.addEventListener("contextmenu", function(e) {
+    e.preventDefault();
+
+    window.parent.postMessage({
+        type: "prev"
+    }, "*");
+});
+
+</script>
+""", height=0)
+
 st.markdown("""
 <style>
 
