@@ -356,10 +356,10 @@ else:
 
     if st.session_state.manual_mode:
 
-    inactive_seconds = (
-        time.time()
-        - st.session_state.last_manual_action
-    )
+        inactive_seconds = (
+            time.time()
+            - st.session_state.last_manual_action
+        )
 
     if inactive_seconds > 60:
 
