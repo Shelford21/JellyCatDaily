@@ -239,7 +239,21 @@ if edit_mode:
             
             buffer.seek(0)
             
-            filename = f"{uuid.uuid4()}.jpg"
+            from datetime import datetime
+            import re
+            import os
+            
+            base_name = os.path.splitext(uploaded.name)[0]
+            
+            safe_name = re.sub(
+                r'[^a-zA-Z0-9_-]',
+                '_',
+                base_name
+            )
+            
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            
+            filename = f"{safe_name}_{timestamp}.jpg"
             
             supabase.storage.from_(BUCKET).upload(
                 path=filename,
