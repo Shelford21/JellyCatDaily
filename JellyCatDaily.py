@@ -168,8 +168,8 @@ if edit_mode:
         
             # TARGET_WIDTH = 3064
             # TARGET_HEIGHT = 1610
-            TARGET_WIDTH = 1920
-            TARGET_HEIGHT = 1080
+            TARGET_WIDTH = 1024
+            TARGET_HEIGHT = 768
             
             img = Image.open(uploaded)
             
