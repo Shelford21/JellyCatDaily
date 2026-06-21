@@ -7,6 +7,27 @@ import base64
 from PIL import Image, ImageOps
 from io import BytesIO
 
+st.markdown("""
+<style>
+
+html, body {
+    overflow: hidden !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+[data-testid="stAppViewContainer"] {
+    overflow: hidden !important;
+}
+
+.main .block-container {
+    padding: 0 !important;
+    margin: 0 !important;
+    max-width: 100% !important;
+}
+
+</style>
+""", unsafe_allow_html=True)
 
 # from streamlit_autorefresh import st_autorefresh
 
@@ -245,19 +266,22 @@ else:
 
     current = images[current_index]
 
-    st.markdown(
-        f"""
-        <div style="
-        width:100%;
-        text-align:center;
-        ">
-            <img
-            src="{current['url']}"
-            style="
-            width:100%;
-            height:auto;
-            ">
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
+    st.markdown(f"""
+    <div style="
+    width:100vw;
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+    ">
+    
+    <img src="{current['url']}"
+    style="
+    max-width:100%;
+    max-height:100%;
+    object-fit:contain;
+    "/>
+    
+    </div>
+    """, unsafe_allow_html=True)
