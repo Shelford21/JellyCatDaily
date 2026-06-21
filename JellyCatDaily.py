@@ -188,16 +188,17 @@ if edit_mode:
         
             # TARGET_WIDTH = 3064
             # TARGET_HEIGHT = 1610
-            TARGET_WIDTH = 1024
-            TARGET_HEIGHT = 768
+            TARGET_WIDTH = 3064
+            TARGET_HEIGHT = 1610
             
             img = Image.open(uploaded)
             
             img = ImageOps.fit(
-                img,
-                (TARGET_WIDTH, TARGET_HEIGHT),
-                Image.Resampling.LANCZOS
-            )
+            img,
+            (TARGET_WIDTH, TARGET_HEIGHT),
+            Image.Resampling.LANCZOS,
+            centering=(0.5, 0.5)
+        )
             
             img = img.convert("RGB")
             
