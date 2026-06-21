@@ -354,7 +354,7 @@ else:
         slide_tick % len(images)
     )
 
-     if st.session_state.manual_mode:
+    if st.session_state.manual_mode:
 
         inactive_seconds = (
             time.time()
