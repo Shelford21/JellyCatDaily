@@ -1,3 +1,7 @@
+[data-testid="stVerticalBlock"] {
+    gap: 0rem;
+}
+
 /* SIDEBAR SEND BUTTON GREEN */
 
 section[data-testid="stSidebar"] .stButton > button {
