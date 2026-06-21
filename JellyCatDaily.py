@@ -27,27 +27,7 @@ document.addEventListener("contextmenu", function(e) {
 </script>
 """, height=0)
 
-st.markdown("""
-<style>
 
-html, body {
-    overflow: hidden !important;
-    margin: 0 !important;
-    padding: 0 !important;
-}
-
-[data-testid="stAppViewContainer"] {
-    overflow: hidden !important;
-}
-
-.main .block-container {
-    padding: 0 !important;
-    margin: 0 !important;
-    max-width: 100% !important;
-}
-
-</style>
-""", unsafe_allow_html=True)
 
 # from streamlit_autorefresh import st_autorefresh
 
