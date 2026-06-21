@@ -184,6 +184,7 @@ if edit_mode:
             st.session_state[upload_key] = True
         
             ext = uploaded.name.split(".")[-1]
+            from datetime import datetime
             import re
             import os
             
@@ -195,7 +196,9 @@ if edit_mode:
                 base_name
             )
             
-            filename = f"{safe_name}.jpg"
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            
+            filename = f"{safe_name}_{timestamp}.jpg"
         
             # TARGET_WIDTH = 3064
             # TARGET_HEIGHT = 1610
