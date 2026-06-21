@@ -166,8 +166,10 @@ if edit_mode:
             ext = uploaded.name.split(".")[-1]
             filename = f"{uuid.uuid4()}.{ext}"
         
-            TARGET_WIDTH = 3064
-            TARGET_HEIGHT = 1610
+            # TARGET_WIDTH = 3064
+            # TARGET_HEIGHT = 1610
+            TARGET_WIDTH = 1920
+            TARGET_HEIGHT = 1080
             
             img = Image.open(uploaded)
             
