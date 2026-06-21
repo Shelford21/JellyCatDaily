@@ -67,11 +67,11 @@ footer {{
 # =========================
 
 supabase = create_client(
-    st.secrets["https://zkcucwxoewwnqirhxfqq.supabase.co"],
-    st.secrets["sb_publishable_AbXidGSHecA6I_wAtL8Snw_pAMBOeL8"]
+    st.secrets["SUPABASE_URL"],
+    st.secrets["SUPABASE_KEY"]
 )
 
-BUCKET = st.secrets["jellycatdaily"]
+BUCKET = st.secrets["SUPABASE_BUCKET"]
 
 # =========================
 # SESSION
