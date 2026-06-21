@@ -60,31 +60,7 @@ st.set_page_config(
     layout="wide"
 )
 
-st.markdown(f"""
-<style>
 
-#MainMenu {{
-    visibility:hidden;
-}}
-
-header {{
-    visibility:hidden;
-}}
-
-footer {{
-    visibility:hidden;
-}}
-
-.block-container {{
-    padding-top:{TOP_MARGIN}px !important;
-    padding-left:0 !important;
-    padding-right:0 !important;
-    padding-bottom:0 !important;
-    max-width:100% !important;
-}}
-
-</style>
-""", unsafe_allow_html=True)
 
 # =========================
 # SUPABASE
