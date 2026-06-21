@@ -358,7 +358,8 @@ else:
                 st.session_state.manual_index + 1
             ) % len(images)
             
-    current = images[st.session_state.manual_index]
+    # current = images[st.session_state.manual_index]
+    current = images[current_index]
     
     
         
