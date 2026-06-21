@@ -28,31 +28,7 @@ document.addEventListener("contextmenu", function(e) {
 """, height=0)
 
 
-st.markdown(f"""
-<style>
 
-#MainMenu {{
-    visibility:hidden;
-}}
-
-header {{
-    visibility:hidden;
-}}
-
-footer {{
-    visibility:hidden;
-}}
-
-.block-container {{
-    padding-top:{TOP_MARGIN}px !important;
-    padding-left:0 !important;
-    padding-right:0 !important;
-    padding-bottom:0 !important;
-    max-width:100% !important;
-}}
-
-</style>
-""", unsafe_allow_html=True)
 # from streamlit_autorefresh import st_autorefresh
 
 # st_autorefresh(
@@ -85,7 +61,31 @@ st.set_page_config(
 )
 
 
+st.markdown(f"""
+<style>
 
+#MainMenu {{
+    visibility:hidden;
+}}
+
+header {{
+    visibility:hidden;
+}}
+
+footer {{
+    visibility:hidden;
+}}
+
+.block-container {{
+    padding-top:{TOP_MARGIN}px !important;
+    padding-left:0 !important;
+    padding-right:0 !important;
+    padding-bottom:0 !important;
+    max-width:100% !important;
+}}
+
+</style>
+""", unsafe_allow_html=True)
 # =========================
 # SUPABASE
 # =========================
