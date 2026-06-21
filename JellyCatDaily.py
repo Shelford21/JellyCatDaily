@@ -188,17 +188,30 @@ if edit_mode:
         
             # TARGET_WIDTH = 3064
             # TARGET_HEIGHT = 1610
-            TARGET_WIDTH = 3064
-            TARGET_HEIGHT = 1610
+            from PIL import Image, ImageOps
+
+            TARGET = (3064, 1610)
             
             img = Image.open(uploaded)
             
-            img = ImageOps.fit(
-            img,
-            (TARGET_WIDTH, TARGET_HEIGHT),
-            Image.Resampling.LANCZOS,
-            centering=(0.5, 0.5)
-        )
+            img = ImageOps.contain(
+                img,
+                TARGET,
+                Image.Resampling.LANCZOS
+            )
+            
+            canvas = Image.new(
+                "RGB",
+                TARGET,
+                (255,255,255)  # white background
+            )
+            
+            x = (TARGET[0] - img.width) // 2
+            y = (TARGET[1] - img.height) // 2
+            
+            canvas.paste(img, (x, y))
+            
+            img = canvas
             
             img = img.convert("RGB")
             
