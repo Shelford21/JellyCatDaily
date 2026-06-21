@@ -190,8 +190,8 @@ if edit_mode:
             # TARGET_HEIGHT = 1610
             from PIL import Image, ImageOps
 
-            TARGET = (3064, 1610)
-            
+            # TARGET = (3064, 1610)
+            TARGET = (1920, 1080)
             img = Image.open(uploaded)
             
             img = ImageOps.contain(
