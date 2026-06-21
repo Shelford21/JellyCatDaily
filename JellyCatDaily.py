@@ -354,16 +354,7 @@ else:
         slide_tick % len(images)
     )
 
-    if st.session_state.manual_mode:
-
-        inactive_seconds = (
-            time.time()
-            - st.session_state.last_manual_action
-        )
-
-    if inactive_seconds > 60:
-
-        st.session_state.manual_mode = False
+    
 
 
 
@@ -399,6 +390,17 @@ else:
     # current = images[st.session_state.manual_index]
     # current = images[current_index]
 
+    if st.session_state.manual_mode:
+
+        inactive_seconds = (
+            time.time()
+            - st.session_state.last_manual_action
+        )
+
+    if inactive_seconds > 60:
+
+        st.session_state.manual_mode = False
+        
     if st.session_state.manual_mode:
 
         current = images[
