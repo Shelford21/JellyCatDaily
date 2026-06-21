@@ -80,8 +80,10 @@ BUCKET = st.secrets["SUPABASE_BUCKET"]
 # SESSION
 # =========================
 
+import time
+
 if "last_activity" not in st.session_state:
-    st.session_state.last_activity = datetime.now()
+    st.session_state.last_activity = time.time()
 
 if "slide_index" not in st.session_state:
     st.session_state.slide_index = 0
@@ -94,7 +96,7 @@ st_autorefresh(interval=1000, key="clock")
 # =========================
 
 def touch():
-    st.session_state.last_activity = datetime.now()
+    st.session_state.last_activity = time.time()
 
 def list_images():
     files = supabase.storage.from_(BUCKET).list()
@@ -129,10 +131,7 @@ def list_images():
 
 images = list_images()
 
-elapsed = (
-    datetime.now()
-    - st.session_state.last_activity
-).total_seconds()
+elapsed = time.time() - st.session_state.last_activity
 
 edit_mode = elapsed < EDIT_TIMEOUT
 
