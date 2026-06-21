@@ -148,31 +148,30 @@ if edit_mode:
     )
 
     uploaded = st.file_uploader(
-        "Upload Image",
-        type=["jpg", "jpeg", "png", "webp"]
-    )
-
-    if uploaded:
-
-        ext = uploaded.name.split(".")[-1]
-
-        filename = f"{uuid.uuid4()}.{ext}"
-
-        try:
-            result = supabase.storage.from_(BUCKET).upload(
-                path=filename,
-                file=uploaded.getvalue()
-            )
+            "Upload Image",
+            type=["jpg", "jpeg", "png", "webp"]
+        )
         
-            st.success("Upload success")
-            st.write(result)
+        if uploaded is not None:
         
-        except Exception as e:
-            st.error(str(e))
-            st.stop()
-
-        touch()
-        st.rerun()
+            upload_key = f"uploaded_{uploaded.name}_{uploaded.size}"
+        
+            if upload_key not in st.session_state:
+        
+                st.session_state[upload_key] = True
+        
+                ext = uploaded.name.split(".")[-1]
+                filename = f"{uuid.uuid4()}.{ext}"
+        
+                supabase.storage.from_(BUCKET).upload(
+                    path=filename,
+                    file=uploaded.getvalue()
+                )
+        
+                touch()
+        
+                st.success("Upload successful")
+                st.rerun()
 
     st.subheader("Uploaded Images")
 
