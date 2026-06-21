@@ -184,7 +184,18 @@ if edit_mode:
             st.session_state[upload_key] = True
         
             ext = uploaded.name.split(".")[-1]
-            filename = f"{uuid.uuid4()}.{ext}"
+            import re
+            import os
+            
+            base_name = os.path.splitext(uploaded.name)[0]
+            
+            safe_name = re.sub(
+                r'[^a-zA-Z0-9_-]',
+                '_',
+                base_name
+            )
+            
+            filename = f"{safe_name}.jpg"
         
             # TARGET_WIDTH = 3064
             # TARGET_HEIGHT = 1610
