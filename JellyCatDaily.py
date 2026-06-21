@@ -7,6 +7,19 @@ import base64
 from PIL import Image, ImageOps
 from io import BytesIO
 
+
+import time
+
+if "manual_mode" not in st.session_state:
+    st.session_state.manual_mode = False
+
+if "manual_index" not in st.session_state:
+    st.session_state.manual_index = 0
+
+if "last_manual_action" not in st.session_state:
+    st.session_state.last_manual_action = 0
+
+
 params = st.query_params
 
 if "nav" in params:
@@ -341,25 +354,62 @@ else:
         slide_tick % len(images)
     )
 
+    if st.session_state.manual_mode:
+
+    inactive_seconds = (
+        time.time()
+        - st.session_state.last_manual_action
+    )
+
+    if inactive_seconds > 60:
+
+        st.session_state.manual_mode = False
+
+
+
+
+    
     if "manual_index" not in st.session_state:
         st.session_state.manual_index = 0
     
     col1, col2 = st.columns(2)
     
     with col1:
-        if st.button("⬅ Previous", use_container_width=True):
+        if st.button("⬅ Previous"):
+
+            st.session_state.manual_mode = True
+        
             st.session_state.manual_index = (
                 st.session_state.manual_index - 1
             ) % len(images)
+        
+            st.session_state.last_manual_action = time.time()
     
     with col2:
-        if st.button("Next ➡", use_container_width=True):
+        if st.button("Next ➡"):
+
+            st.session_state.manual_mode = True
+        
             st.session_state.manual_index = (
                 st.session_state.manual_index + 1
             ) % len(images)
+        
+            st.session_state.last_manual_action = time.time()
             
     # current = images[st.session_state.manual_index]
-    current = images[current_index]
+    # current = images[current_index]
+
+    if st.session_state.manual_mode:
+
+    current = images[
+        st.session_state.manual_index
+    ]
+
+else:
+
+    current = images[
+        current_index
+    ]
     
     
         
