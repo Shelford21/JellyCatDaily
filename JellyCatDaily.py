@@ -158,10 +158,18 @@ if edit_mode:
 
         filename = f"{uuid.uuid4()}.{ext}"
 
-        supabase.storage.from_(BUCKET).upload(
-            filename,
-            uploaded.getvalue()
-        )
+        try:
+            result = supabase.storage.from_(BUCKET).upload(
+                path=filename,
+                file=uploaded.getvalue()
+            )
+        
+            st.success("Upload success")
+            st.write(result)
+        
+        except Exception as e:
+            st.error(str(e))
+            st.stop()
 
         touch()
         st.rerun()
