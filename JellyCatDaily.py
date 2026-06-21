@@ -266,22 +266,25 @@ else:
 
     current = images[current_index]
 
-    st.markdown(f"""
+   st.markdown(
+    f"""
     <div style="
-    width:100vw;
-    height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    overflow:hidden;
+        width:100vw;
+        height:100vh;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        overflow:hidden;
     ">
-    
-    <img src="{current['url']}"
-    style="
-    max-width:100%;
-    max-height:100%;
-    object-fit:contain;
-    "/>
-    
+        <img
+            src="{current['url']}"
+            style="
+                width:100vw;
+                height:100vh;
+                object-fit:cover;
+            "
+        >
     </div>
-    """, unsafe_allow_html=True)
+    """,
+    unsafe_allow_html=True
+)
