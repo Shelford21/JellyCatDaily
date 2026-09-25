@@ -49,26 +49,17 @@ if "last_activity" not in st.session_state:
 
 
 # =========================================================
-# CSS
+# CUSTOM CSS
 # =========================================================
 
 def load_css():
-
     try:
-
-        with open(
-            "styles.css",
-            "r",
-            encoding="utf-8"
-        ) as f:
-
+        with open("styles.css", "r", encoding="utf-8") as f:
             st.markdown(
                 f"<style>{f.read()}</style>",
                 unsafe_allow_html=True
             )
-
     except FileNotFoundError:
-
         pass
 
 
@@ -118,9 +109,11 @@ BUCKET = st.secrets["SUPABASE_BUCKET"]
 
 
 # =========================================================
-# REFRESH
+# AUTO REFRESH
 # =========================================================
 
+# Refresh every second.
+# This controls the editing timeout and slideshow timer.
 st_autorefresh(
     interval=1000,
     key="jellycat_clock"
@@ -128,57 +121,40 @@ st_autorefresh(
 
 
 # =========================================================
-# FUNCTIONS
+# HELPER FUNCTIONS
 # =========================================================
 
 def touch():
-
+    """
+    Reset editing timeout.
+    """
     st.session_state.last_activity = time.time()
 
 
 def list_images():
-
+    """
+    Get all image files from Supabase Storage.
+    """
     try:
-
-        files = supabase.storage.from_(
-            BUCKET
-        ).list()
-
+        files = supabase.storage.from_(BUCKET).list()
     except Exception as e:
-
-        st.error(
-            f"Failed to access Supabase Storage: {e}"
-        )
-
+        st.error(f"Failed to load images from Supabase: {e}")
         return []
-
 
     images = []
 
-
-    for file in files:
-
-        name = file.get("name", "")
+    for f in files:
+        name = f.get("name", "")
 
         if not name:
             continue
 
         lower = name.lower()
 
-        if lower.endswith(
-            (
-                ".jpg",
-                ".jpeg",
-                ".png",
-                ".webp"
-            )
-        ):
+        if lower.endswith((".jpg", ".jpeg", ".png", ".webp")):
 
             try:
-
-                url = supabase.storage.from_(
-                    BUCKET
-                ).get_public_url(name)
+                url = supabase.storage.from_(BUCKET).get_public_url(name)
 
                 images.append(
                     {
@@ -188,10 +164,9 @@ def list_images():
                 )
 
             except Exception:
-
                 continue
 
-
+    # Alphabetical order
     images.sort(
         key=lambda x: x["name"].lower()
     )
@@ -199,11 +174,12 @@ def list_images():
     return images
 
 
-def create_filename(original_name):
+def create_safe_filename(original_name):
+    """
+    Create a safe filename for Supabase Storage.
+    """
 
-    base_name = os.path.splitext(
-        original_name
-    )[0]
+    base_name = os.path.splitext(original_name)[0]
 
     safe_name = re.sub(
         r"[^a-zA-Z0-9_-]",
@@ -212,59 +188,48 @@ def create_filename(original_name):
     )
 
     timestamp = datetime.now().strftime(
-        "%Y%m%d_%H%M%S_%f"
+        "%Y%m%d_%H%M%S"
     )
 
     return f"{safe_name}_{timestamp}.jpg"
 
 
 def process_image(uploaded_file):
+    """
+    Convert uploaded image into 1920x1080 JPEG.
+    Image is contained inside the canvas without cropping.
+    """
 
-    img = Image.open(
-        uploaded_file
-    )
+    img = Image.open(uploaded_file)
 
-    # Convert to RGB
+    # Convert image to RGB
     if img.mode != "RGB":
-
         img = img.convert("RGB")
 
-
-    # Resize while keeping aspect ratio
+    # Fit image inside 1920x1080
     img = ImageOps.contain(
         img,
         TARGET_SIZE,
         Image.Resampling.LANCZOS
     )
 
-
-    # Create 1920x1080 white canvas
+    # Create white background
     canvas = Image.new(
         "RGB",
         TARGET_SIZE,
         (255, 255, 255)
     )
 
-
     # Center image
-    x = (
-        TARGET_SIZE[0]
-        - img.width
-    ) // 2
-
-    y = (
-        TARGET_SIZE[1]
-        - img.height
-    ) // 2
-
+    x = (TARGET_SIZE[0] - img.width) // 2
+    y = (TARGET_SIZE[1] - img.height) // 2
 
     canvas.paste(
         img,
         (x, y)
     )
 
-
-    # Convert to JPEG bytes
+    # Save to memory
     buffer = BytesIO()
 
     canvas.save(
@@ -275,7 +240,7 @@ def process_image(uploaded_file):
 
     buffer.seek(0)
 
-    return buffer.getvalue()
+    return buffer
 
 
 # =========================================================
@@ -286,7 +251,49 @@ images = list_images()
 
 
 # =========================================================
-# EDIT MODE
+# HANDLE KEYBOARD / MOUSE NAVIGATION
+# =========================================================
+#
+# IMPORTANT:
+# This block is AFTER images = list_images()
+# so the navigation logic never tries to use images
+# before the variable exists.
+#
+
+if len(images) > 0:
+
+    params = st.query_params
+
+    if "nav" in params:
+
+        nav = params["nav"]
+
+        if nav == "next":
+
+            st.session_state.manual_mode = True
+
+            st.session_state.manual_index = (
+                st.session_state.manual_index + 1
+            ) % len(images)
+
+            st.session_state.last_manual_action = time.time()
+
+        elif nav == "prev":
+
+            st.session_state.manual_mode = True
+
+            st.session_state.manual_index = (
+                st.session_state.manual_index - 1
+            ) % len(images)
+
+            st.session_state.last_manual_action = time.time()
+
+        # Remove navigation parameter
+        st.query_params.clear()
+
+
+# =========================================================
+# CALCULATE EDIT MODE
 # =========================================================
 
 elapsed = (
@@ -297,6 +304,10 @@ elapsed = (
 edit_mode = elapsed < EDIT_TIMEOUT
 
 
+# =========================================================
+# EDIT MODE
+# =========================================================
+
 if edit_mode:
 
     remaining = max(
@@ -304,21 +315,16 @@ if edit_mode:
         int(EDIT_TIMEOUT - elapsed)
     )
 
-
-    st.title(
-        "Image Manager"
-    )
-
+    st.title("Image Manager")
 
     st.info(
-        f"Editing Mode - slideshow starts in "
-        f"{remaining} seconds"
+        f"Editing Mode - slideshow starts in {remaining} seconds"
     )
 
 
-    # =====================================================
+    # -----------------------------------------------------
     # UPLOAD
-    # =====================================================
+    # -----------------------------------------------------
 
     uploaded = st.file_uploader(
         "Upload Image",
@@ -335,138 +341,52 @@ if edit_mode:
     if uploaded is not None:
 
         upload_key = (
-            f"uploaded_"
-            f"{uploaded.name}_"
-            f"{uploaded.size}"
+            f"uploaded_{uploaded.name}_{uploaded.size}"
         )
-
 
         if upload_key not in st.session_state:
 
+            st.session_state[upload_key] = True
+
             try:
 
-                # -----------------------------------------
-                # Mark upload as processed
-                # -----------------------------------------
-
-                st.session_state[
-                    upload_key
-                ] = True
-
-
-                # -----------------------------------------
                 # Create filename
-                # -----------------------------------------
-
-                filename = create_filename(
+                filename = create_safe_filename(
                     uploaded.name
                 )
 
-
-                # -----------------------------------------
-                # Convert image
-                # -----------------------------------------
-
-                image_bytes = process_image(
+                # Process image
+                buffer = process_image(
                     uploaded
                 )
 
-
-                st.info(
-                    f"Uploading `{filename}`..."
-                )
-
-
-                # -----------------------------------------
-                # UPLOAD TO SUPABASE STORAGE
-                # -----------------------------------------
-
-                result = supabase.storage.from_(
-                    BUCKET
-                ).upload(
+                # Upload to Supabase
+                supabase.storage.from_(BUCKET).upload(
                     path=filename,
-                    file=image_bytes,
-                    file_options={
-                        "content-type": "image/jpeg",
-                        "cache-control": "3600",
-                        "upsert": "false"
-                    }
+                    file=buffer.getvalue()
                 )
 
+                # Reset timer
+                touch()
 
-                # -----------------------------------------
-                # SHOW SUPABASE RESPONSE
-                # -----------------------------------------
+                # Reset uploader state
+                st.session_state.manual_mode = False
 
-                st.write(
-                    "Supabase upload response:",
-                    result
-                )
-
-
-                # -----------------------------------------
-                # VERIFY FILE EXISTS
-                # -----------------------------------------
-
-                verify_files = (
-                    supabase
-                    .storage
-                    .from_(BUCKET)
-                    .list()
-                )
-
-
-                uploaded_names = [
-                    f.get("name")
-                    for f in verify_files
-                ]
-
-
-                if filename in uploaded_names:
-
-                    st.success(
-                        f"Successfully uploaded: "
-                        f"{filename}"
-                    )
-
-                    touch()
-
-                    time.sleep(1)
-
-                    st.rerun()
-
-                else:
-
-                    st.error(
-                        "Upload request completed, "
-                        "but the file was not found "
-                        "inside the Supabase bucket."
-                    )
-
+                # Refresh application
+                st.rerun()
 
             except Exception as e:
 
                 st.error(
-                    "SUPABASE UPLOAD ERROR"
+                    f"Upload failed: {e}"
                 )
 
-                st.exception(e)
 
-                # Allow retry
-                if upload_key in st.session_state:
-
-                    del st.session_state[
-                        upload_key
-                    ]
-
-
-    # =====================================================
+    # -----------------------------------------------------
     # EXISTING IMAGES
-    # =====================================================
+    # -----------------------------------------------------
 
-    st.subheader(
-        "Uploaded Images"
-    )
+    st.subheader("Uploaded Images")
 
 
     if len(images) == 0:
@@ -483,13 +403,11 @@ if edit_mode:
                 [8, 1]
             )
 
-
             with col1:
 
                 st.write(
                     img["name"]
                 )
-
 
             with col2:
 
@@ -500,41 +418,32 @@ if edit_mode:
 
                     try:
 
-                        result = (
-                            supabase
-                            .storage
-                            .from_(BUCKET)
-                            .remove(
-                                [img["name"]]
-                            )
+                        supabase.storage.from_(
+                            BUCKET
+                        ).remove(
+                            [img["name"]]
                         )
-
-
-                        st.write(
-                            "Delete response:",
-                            result
-                        )
-
 
                         touch()
 
                         st.rerun()
 
-
                     except Exception as e:
 
                         st.error(
-                            "DELETE ERROR"
+                            f"Delete failed: {e}"
                         )
-
-                        st.exception(e)
 
 
 # =========================================================
-# SLIDESHOW
+# SLIDESHOW MODE
 # =========================================================
 
 else:
+
+    # -----------------------------------------------------
+    # NO IMAGES
+    # -----------------------------------------------------
 
     if len(images) == 0:
 
@@ -545,9 +454,9 @@ else:
         st.stop()
 
 
-    # =====================================================
+    # -----------------------------------------------------
     # MANUAL MODE TIMEOUT
-    # =====================================================
+    # -----------------------------------------------------
 
     if st.session_state.manual_mode:
 
@@ -556,23 +465,23 @@ else:
             - st.session_state.last_manual_action
         )
 
-
+        # After 60 seconds, return to automatic slideshow
         if inactive_seconds > 60:
 
             st.session_state.manual_mode = False
 
+            # Reset automatic slideshow timing
             st.rerun()
 
 
-    # =====================================================
-    # AUTOMATIC SLIDESHOW
-    # =====================================================
+    # -----------------------------------------------------
+    # AUTOMATIC SLIDESHOW INDEX
+    # -----------------------------------------------------
 
     slide_tick = int(
         (elapsed - EDIT_TIMEOUT)
         // SLIDE_INTERVAL
     )
-
 
     current_index = (
         slide_tick
@@ -580,9 +489,9 @@ else:
     )
 
 
-    # =====================================================
-    # BUTTONS
-    # =====================================================
+    # -----------------------------------------------------
+    # NAVIGATION BUTTONS
+    # -----------------------------------------------------
 
     col1, col2 = st.columns(2)
 
@@ -627,9 +536,9 @@ else:
             st.rerun()
 
 
-    # =====================================================
-    # CURRENT IMAGE
-    # =====================================================
+    # -----------------------------------------------------
+    # DETERMINE CURRENT IMAGE
+    # -----------------------------------------------------
 
     if st.session_state.manual_mode:
 
@@ -645,43 +554,107 @@ else:
 
 
     # =====================================================
-    # KEYBOARD CONTROL
+    # KEYBOARD + MOUSE CONTROLS
+    # =====================================================
+    #
+    # st.iframe() replaces the deprecated
+    # st.components.v1.html().
+    #
+    # Left Arrow  -> Previous
+    # Right Arrow -> Next
+    # Left Click  -> Next
+    # Right Click -> Previous
+    #
     # =====================================================
 
     st.iframe(
-        """
+        f"""
         <!DOCTYPE html>
 
         <html>
+
+        <head>
+
+            <meta charset="UTF-8">
+
+            <style>
+
+                html,
+                body {{
+                    margin: 0;
+                    padding: 0;
+                    width: 100%;
+                    height: 1px;
+                    overflow: hidden;
+                    background: transparent;
+                }}
+
+            </style>
+
+        </head>
 
         <body>
 
         <script>
 
-        document.addEventListener(
-            "keydown",
-            function(event) {
+            // ==========================================
+            // KEYBOARD
+            // ==========================================
 
-                if (event.key === "ArrowLeft") {
+            document.addEventListener(
+                "keydown",
+                function(event) {{
+
+                    if (event.key === "ArrowLeft") {{
+
+                        event.preventDefault();
+
+                        window.parent.location.search =
+                            "?nav=prev";
+                    }}
+
+                    if (event.key === "ArrowRight") {{
+
+                        event.preventDefault();
+
+                        window.parent.location.search =
+                            "?nav=next";
+                    }}
+
+                }}
+            );
+
+
+            // ==========================================
+            // LEFT CLICK
+            // ==========================================
+
+            document.addEventListener(
+                "click",
+                function(event) {{
+
+                    window.parent.location.search =
+                        "?nav=next";
+
+                }}
+            );
+
+
+            // ==========================================
+            // RIGHT CLICK
+            // ==========================================
+
+            document.addEventListener(
+                "contextmenu",
+                function(event) {{
 
                     event.preventDefault();
 
                     window.parent.location.search =
                         "?nav=prev";
 
-                }
-
-                if (event.key === "ArrowRight") {
-
-                    event.preventDefault();
-
-                    window.parent.location.search =
-                        "?nav=next";
-
-                }
-
-            }
-        );
+                }}
+            );
 
         </script>
 
