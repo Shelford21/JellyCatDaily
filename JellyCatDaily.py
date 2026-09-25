@@ -670,34 +670,7 @@ else:
     # DISPLAY IMAGE
     # =====================================================
 
-    st.markdown(
-        f"""
-        <div
-            style="
-                width:100vw;
-                height:calc(100vh - 50px);
-                display:flex;
-                justify-content:center;
-                align-items:center;
-                overflow:hidden;
-                background:white;
-            "
-        >
-
-            <img
-                src="{current['url']}"
-                style="
-                    width:100vw;
-                    height:100%;
-                    object-fit:cover;
-                    display:block;
-                    user-select:none;
-                    -webkit-user-drag:none;
-                "
-                draggable="false"
-            >
-
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
+   st.image(
+    current["url"],
+    use_container_width=True
+)
