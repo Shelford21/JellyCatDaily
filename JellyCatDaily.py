@@ -670,7 +670,8 @@ else:
     # DISPLAY IMAGE
     # =====================================================
 
-       st.image(
+    
+    st.image(
         current["url"],
         use_container_width=True
     )
